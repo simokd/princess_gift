@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { DollarSign, ShoppingBag, Package, TrendingUp } from 'lucide-react'
+import { motion } from 'framer-motion'
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell,
@@ -13,6 +14,15 @@ import orderService from '../../services/orderService'
 import { formatPrice } from '../../utils/formatPrice'
 
 const PIE_COLORS = ['#F472B6', '#EC4899', '#F9A8D4', '#FBCFE8', '#A78BFA', '#FDE68A']
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+}
+
+const stagger = {
+  show: { transition: { staggerChildren: 0.08 } },
+}
 
 export default function Dashboard() {
   const { t, i18n } = useTranslation()
@@ -93,46 +103,71 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-neutral-900 mb-6">{t('admin.dashboard')}</h1>
+      <motion.h1
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="text-2xl font-bold text-neutral-900 mb-6"
+      >
+        {t('admin.dashboard')}
+      </motion.h1>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <KPICard
-          icon={DollarSign}
-          label={t('admin.totalSales')}
-          value={formatPrice(totalSales, i18n.language)}
-          trend={12}
-          color="green"
-        />
-        <KPICard
-          icon={ShoppingBag}
-          label={t('admin.totalOrders')}
-          value={totalOrders}
-          trend={8}
-          color="blue"
-        />
-        <KPICard
-          icon={Package}
-          label={t('admin.totalProducts')}
-          value={totalProducts}
-          color="amber"
-        />
-        <KPICard
-          icon={TrendingUp}
-          label={t('admin.topProducts')}
-          value={topProducts[0]?.name || '—'}
-          color="pink"
-        />
-      </div>
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8"
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+      >
+        <motion.div variants={fadeIn}>
+          <KPICard
+            icon={DollarSign}
+            label={t('admin.totalSales')}
+            value={formatPrice(totalSales, i18n.language)}
+            trend={12}
+            color="green"
+          />
+        </motion.div>
+        <motion.div variants={fadeIn}>
+          <KPICard
+            icon={ShoppingBag}
+            label={t('admin.totalOrders')}
+            value={totalOrders}
+            trend={8}
+            color="blue"
+          />
+        </motion.div>
+        <motion.div variants={fadeIn}>
+          <KPICard
+            icon={Package}
+            label={t('admin.totalProducts')}
+            value={totalProducts}
+            color="amber"
+          />
+        </motion.div>
+        <motion.div variants={fadeIn}>
+          <KPICard
+            icon={TrendingUp}
+            label={t('admin.topProducts')}
+            value={topProducts[0]?.name || '—'}
+            color="pink"
+          />
+        </motion.div>
+      </motion.div>
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+      <motion.div
+        className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.3 }}
+      >
         {/* Sales Bar Chart */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-neutral-100 p-5">
+        <div className="lg:col-span-2 bg-white rounded-xl border border-pink-100/50 p-5 shadow-card">
           <h3 className="text-sm font-semibold text-neutral-700 mb-4 m-0">{t('admin.salesChart')}</h3>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={salesChartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#F5F5F5" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#FCE7F3" />
               <XAxis dataKey="month" tick={{ fontSize: 12 }} stroke="#D4D4D4" />
               <YAxis tick={{ fontSize: 12 }} stroke="#D4D4D4" />
               <Tooltip
@@ -148,7 +183,7 @@ export default function Dashboard() {
         </div>
 
         {/* Order Status Pie */}
-        <div className="bg-white rounded-xl border border-neutral-100 p-5">
+        <div className="bg-white rounded-xl border border-pink-100/50 p-5 shadow-card">
           <h3 className="text-sm font-semibold text-neutral-700 mb-4 m-0">Order Status</h3>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
@@ -180,15 +215,20 @@ export default function Dashboard() {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Recent Orders */}
-      <div className="bg-white rounded-xl border border-neutral-100 p-5">
+      <motion.div
+        className="bg-white rounded-xl border border-pink-100/50 p-5 shadow-card"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.45 }}
+      >
         <h3 className="text-sm font-semibold text-neutral-700 mb-4 m-0">{t('admin.recentOrders')}</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-neutral-100">
+              <tr className="border-b border-pink-100/50">
                 <th className="text-start py-3 px-2 text-neutral-500 font-medium">#</th>
                 <th className="text-start py-3 px-2 text-neutral-500 font-medium">Customer</th>
                 <th className="text-start py-3 px-2 text-neutral-500 font-medium">Items</th>
@@ -199,7 +239,7 @@ export default function Dashboard() {
             </thead>
             <tbody>
               {orders.slice().reverse().map((order) => (
-                <tr key={order.id} className="border-b border-neutral-50 last:border-b-0">
+                <tr key={order.id} className="border-b border-neutral-50 last:border-b-0 hover:bg-pink-50/30 transition-colors">
                   <td className="py-3 px-2 font-medium text-neutral-800">{order.id}</td>
                   <td className="py-3 px-2 text-neutral-600">
                     {order.customer?.firstName} {order.customer?.lastName}
@@ -221,7 +261,7 @@ export default function Dashboard() {
             </tbody>
           </table>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

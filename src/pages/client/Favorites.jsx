@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Heart } from 'lucide-react'
+import { motion } from 'framer-motion'
 import Container from '../../components/ui/Container'
 import PageTransition from '../../components/ui/PageTransition'
 import Button from '../../components/ui/Button'
@@ -9,6 +10,15 @@ import Spinner from '../../components/ui/Spinner'
 import ProductCard from '../../components/common/ProductCard'
 import { useFavorites } from '../../context/FavoritesContext'
 import productService from '../../services/productService'
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+}
+
+const stagger = {
+  show: { transition: { staggerChildren: 0.08 } },
+}
 
 export default function Favorites() {
   const { t } = useTranslation()
@@ -41,7 +51,12 @@ export default function Favorites() {
   if (products.length === 0) {
     return (
       <Container className="py-20">
-        <div className="flex flex-col items-center justify-center text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+          className="flex flex-col items-center justify-center text-center"
+        >
           <div className="w-20 h-20 rounded-full bg-pink-50 flex items-center justify-center mb-6">
             <Heart className="w-10 h-10 text-pink-300" />
           </div>
@@ -50,7 +65,7 @@ export default function Favorites() {
           <Link to="/products">
             <Button>{t('cart.continueShopping')}</Button>
           </Link>
-        </div>
+        </motion.div>
       </Container>
     )
   }
@@ -58,12 +73,27 @@ export default function Favorites() {
   return (
     <PageTransition>
     <Container className="py-8">
-      <h1 className="text-3xl mb-8">{t('favorites.title')}</h1>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      <motion.h1
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="text-3xl mb-8"
+      >
+        {t('favorites.title')}
+      </motion.h1>
+
+      <motion.div
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+      >
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <motion.div key={product.id} variants={fadeIn}>
+            <ProductCard product={product} />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </Container>
     </PageTransition>
   )

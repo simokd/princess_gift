@@ -1,10 +1,20 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { motion } from 'framer-motion'
 import Badge from '../../components/ui/Badge'
 import Select from '../../components/ui/Select'
 import Spinner from '../../components/ui/Spinner'
 import orderService from '../../services/orderService'
 import { formatPrice } from '../../utils/formatPrice'
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0 },
+}
+
+const stagger = {
+  show: { transition: { staggerChildren: 0.06 } },
+}
 
 export default function Orders() {
   const { t, i18n } = useTranslation()
@@ -58,11 +68,27 @@ export default function Orders() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-neutral-900 mb-6">{t('admin.orders')}</h1>
+      <motion.h1
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="text-2xl font-bold text-neutral-900 mb-6"
+      >
+        {t('admin.orders')}
+      </motion.h1>
 
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+      >
         {orders.slice().reverse().map((order) => (
-          <div key={order.id} className="bg-white rounded-xl border border-neutral-100 p-5">
+          <motion.div
+            key={order.id}
+            variants={fadeIn}
+            className="bg-white rounded-xl border border-pink-100/50 p-5 shadow-card hover:shadow-lg transition-all duration-300"
+          >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
               <div>
                 <div className="flex items-center gap-3">
@@ -108,7 +134,7 @@ export default function Orders() {
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between pt-3 border-t border-neutral-100">
+            <div className="flex items-center justify-between pt-3 border-t border-pink-100/50">
               <div className="text-xs text-neutral-500">
                 <span>{order.customer?.phone}</span>
                 <span className="mx-2">|</span>
@@ -118,9 +144,9 @@ export default function Orders() {
                 {formatPrice(order.total, i18n.language)}
               </span>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   )
 }

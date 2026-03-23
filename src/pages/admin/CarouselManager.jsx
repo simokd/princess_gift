@@ -1,11 +1,23 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Plus, Pencil, Trash2, Eye, EyeOff } from 'lucide-react'
+import { motion } from 'framer-motion'
 import Button from '../../components/ui/Button'
 import Input from '../../components/ui/Input'
+import IconButton from '../../components/ui/IconButton'
 import Modal from '../../components/ui/Modal'
 import Spinner from '../../components/ui/Spinner'
+import { cn } from '../../utils/cn'
 import carouselService from '../../services/carouselService'
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0 },
+}
+
+const stagger = {
+  show: { transition: { staggerChildren: 0.08 } },
+}
 
 export default function CarouselManager() {
   const { t } = useTranslation()
@@ -104,18 +116,32 @@ export default function CarouselManager() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-neutral-900 m-0">{t('admin.carouselManagement')}</h1>
+        <motion.h1
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="text-2xl font-bold text-neutral-900 m-0"
+        >
+          {t('admin.carouselManagement')}
+        </motion.h1>
         <Button icon={Plus} onClick={openAdd}>{t('admin.addSlide')}</Button>
       </div>
 
       {/* Slides */}
-      <div className="space-y-4">
+      <motion.div
+        className="space-y-4"
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+      >
         {slides.map((slide) => (
-          <div
+          <motion.div
             key={slide.id}
-            className={`bg-white rounded-xl border overflow-hidden flex flex-col sm:flex-row ${
-              slide.active ? 'border-neutral-100' : 'border-neutral-100 opacity-60'
-            }`}
+            variants={fadeIn}
+            className={cn(
+              'bg-white rounded-xl border overflow-hidden flex flex-col sm:flex-row shadow-card hover:shadow-lg transition-all duration-300',
+              slide.active ? 'border-pink-100/50' : 'border-neutral-200 opacity-60'
+            )}
           >
             {/* Preview */}
             <div className="sm:w-64 h-36 sm:h-auto shrink-0 bg-pink-50 overflow-hidden">
@@ -133,32 +159,35 @@ export default function CarouselManager() {
               <div className="flex items-center gap-2 mt-3">
                 <button
                   onClick={() => toggleActive(slide)}
-                  className={`p-2 rounded-lg transition-colors cursor-pointer bg-transparent border-none ${
+                  className={cn(
+                    'p-2 rounded-lg transition-colors cursor-pointer bg-transparent border-none',
                     slide.active
                       ? 'text-success hover:bg-emerald-50'
                       : 'text-neutral-400 hover:bg-neutral-100'
-                  }`}
-                  title={slide.active ? 'Active' : 'Inactive'}
+                  )}
+                  aria-label={slide.active ? 'Deactivate slide' : 'Activate slide'}
                 >
                   {slide.active ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                 </button>
-                <button
+                <IconButton
+                  icon={Pencil}
+                  variant="default"
+                  size="sm"
                   onClick={() => openEdit(slide)}
-                  className="p-2 rounded-lg text-neutral-400 hover:text-blue-500 hover:bg-blue-50 transition-colors cursor-pointer bg-transparent border-none"
-                >
-                  <Pencil className="w-4 h-4" />
-                </button>
-                <button
+                  aria-label={t('admin.addSlide')}
+                />
+                <IconButton
+                  icon={Trash2}
+                  variant="danger"
+                  size="sm"
                   onClick={() => setDeleteConfirm(slide)}
-                  className="p-2 rounded-lg text-neutral-400 hover:text-error hover:bg-red-50 transition-colors cursor-pointer bg-transparent border-none"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
+                  aria-label="Delete slide"
+                />
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Add/Edit Modal */}
       <Modal

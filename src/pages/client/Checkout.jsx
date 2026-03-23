@@ -12,6 +12,15 @@ import { useCart } from '../../context/CartContext'
 import orderService from '../../services/orderService'
 import { formatPrice } from '../../utils/formatPrice'
 
+const sectionFade = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+}
+
+const stagger = {
+  show: { transition: { staggerChildren: 0.1 } },
+}
+
 export default function Checkout() {
   const { t, i18n } = useTranslation()
   const { items, total, clearCart } = useCart()
@@ -92,11 +101,17 @@ export default function Checkout() {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
           className="flex flex-col items-center text-center max-w-md mx-auto"
         >
-          <div className="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mb-6">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: 'spring', stiffness: 300, damping: 20 }}
+            className="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center mb-6"
+          >
             <CheckCircle className="w-10 h-10 text-success" />
-          </div>
+          </motion.div>
           <h2 className="text-2xl mb-2">{t('checkout.orderSuccess')}</h2>
           <p className="text-neutral-500 mb-2">{t('checkout.orderSuccessMessage')}</p>
           <p className="text-sm font-medium text-pink-500 mb-8">
@@ -125,84 +140,104 @@ export default function Checkout() {
   return (
     <PageTransition>
     <Container className="py-8">
-      <h1 className="text-3xl mb-8">{t('checkout.title')}</h1>
+      <motion.h1
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="text-3xl mb-8"
+      >
+        {t('checkout.title')}
+      </motion.h1>
 
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Form */}
-          <div className="lg:col-span-2 space-y-6">
+          <motion.div
+            className="lg:col-span-2 space-y-6"
+            variants={stagger}
+            initial="hidden"
+            animate="show"
+          >
             {/* Personal Info */}
-            <Card>
-              <h3 className="text-lg font-semibold text-neutral-800 mb-4 m-0">
-                {t('checkout.personalInfo')}
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input
-                  label={t('checkout.firstName')}
-                  value={form.firstName}
-                  onChange={handleChange('firstName')}
-                  error={errors.firstName}
-                />
-                <Input
-                  label={t('checkout.lastName')}
-                  value={form.lastName}
-                  onChange={handleChange('lastName')}
-                  error={errors.lastName}
-                />
-                <Input
-                  label={t('checkout.phone')}
-                  value={form.phone}
-                  onChange={handleChange('phone')}
-                  error={errors.phone}
-                  type="tel"
-                />
-                <Input
-                  label={t('checkout.email')}
-                  value={form.email}
-                  onChange={handleChange('email')}
-                  type="email"
-                />
-              </div>
-            </Card>
-
-            {/* Shipping */}
-            <Card>
-              <h3 className="text-lg font-semibold text-neutral-800 mb-4 m-0">
-                {t('checkout.shippingAddress')}
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="sm:col-span-2">
+            <motion.div variants={sectionFade}>
+              <Card>
+                <h3 className="text-lg font-semibold text-neutral-800 mb-4 m-0">
+                  {t('checkout.personalInfo')}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <Input
-                    label={t('checkout.address')}
-                    value={form.address}
-                    onChange={handleChange('address')}
-                    error={errors.address}
+                    label={t('checkout.firstName')}
+                    value={form.firstName}
+                    onChange={handleChange('firstName')}
+                    error={errors.firstName}
+                  />
+                  <Input
+                    label={t('checkout.lastName')}
+                    value={form.lastName}
+                    onChange={handleChange('lastName')}
+                    error={errors.lastName}
+                  />
+                  <Input
+                    label={t('checkout.phone')}
+                    value={form.phone}
+                    onChange={handleChange('phone')}
+                    error={errors.phone}
+                    type="tel"
+                  />
+                  <Input
+                    label={t('checkout.email')}
+                    value={form.email}
+                    onChange={handleChange('email')}
+                    type="email"
                   />
                 </div>
-                <Input
-                  label={t('checkout.city')}
-                  value={form.city}
-                  onChange={handleChange('city')}
-                  error={errors.city}
-                />
-              </div>
-              <div className="mt-4">
-                <label className="block text-sm font-medium text-neutral-700 mb-1.5">
-                  {t('checkout.notes')}
-                </label>
-                <textarea
-                  value={form.notes}
-                  onChange={handleChange('notes')}
-                  placeholder={t('checkout.notesPlaceholder')}
-                  rows={3}
-                  className="w-full px-4 py-2.5 text-sm rounded-lg bg-white border border-neutral-200 focus:ring-2 focus:ring-pink-100 focus:border-pink-400 outline-none resize-none placeholder:text-neutral-300"
-                />
-              </div>
-            </Card>
-          </div>
+              </Card>
+            </motion.div>
+
+            {/* Shipping */}
+            <motion.div variants={sectionFade}>
+              <Card>
+                <h3 className="text-lg font-semibold text-neutral-800 mb-4 m-0">
+                  {t('checkout.shippingAddress')}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="sm:col-span-2">
+                    <Input
+                      label={t('checkout.address')}
+                      value={form.address}
+                      onChange={handleChange('address')}
+                      error={errors.address}
+                    />
+                  </div>
+                  <Input
+                    label={t('checkout.city')}
+                    value={form.city}
+                    onChange={handleChange('city')}
+                    error={errors.city}
+                  />
+                </div>
+                <div className="mt-4">
+                  <label className="block text-sm font-medium text-neutral-700 mb-1.5">
+                    {t('checkout.notes')}
+                  </label>
+                  <textarea
+                    value={form.notes}
+                    onChange={handleChange('notes')}
+                    placeholder={t('checkout.notesPlaceholder')}
+                    rows={3}
+                    className="w-full px-4 py-2.5 text-sm rounded-lg bg-white border border-neutral-200 focus:ring-2 focus:ring-pink-100 focus:border-pink-400 outline-none resize-none placeholder:text-neutral-300 transition-colors duration-200"
+                  />
+                </div>
+              </Card>
+            </motion.div>
+          </motion.div>
 
           {/* Order Summary */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+          >
             <Card className="sticky top-24">
               <h3 className="text-lg font-semibold text-neutral-800 mb-4 m-0">
                 {t('cart.orderSummary')}
@@ -221,7 +256,7 @@ export default function Checkout() {
                 ))}
               </div>
 
-              <div className="border-t border-neutral-100 pt-3 space-y-2 mb-6">
+              <div className="border-t border-pink-100/50 pt-3 space-y-2 mb-6">
                 <div className="flex justify-between text-sm">
                   <span className="text-neutral-500">{t('cart.shipping')}</span>
                   <span className="text-success font-medium">{t('cart.freeShipping')}</span>
@@ -238,7 +273,7 @@ export default function Checkout() {
                 {t('checkout.placeOrder')}
               </Button>
             </Card>
-          </div>
+          </motion.div>
         </div>
       </form>
     </Container>

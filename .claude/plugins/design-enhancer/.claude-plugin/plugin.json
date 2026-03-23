@@ -1,0 +1,10 @@
+{
+  "name": "design-enhancer",
+  "version": "1.0.0",
+  "description": "Design enhancement toolkit for the Princess Gifts e-commerce app. Provides the /enhance slash command to improve component styling, and auto-activates when design/styling topics arise.",
+  "author": "Princess Gifts Team",
+  "skills": [
+    "skills/enhance",
+    "skills/design-advisor"
+  ]
+}

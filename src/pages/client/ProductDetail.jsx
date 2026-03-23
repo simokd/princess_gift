@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Heart, ShoppingCart, ChevronLeft, Check } from 'lucide-react'
 import { motion } from 'framer-motion'
+import { cn } from '../../utils/cn'
 import Container from '../../components/ui/Container'
 import PageTransition from '../../components/ui/PageTransition'
 import Button from '../../components/ui/Button'
@@ -14,6 +15,47 @@ import { useCart } from '../../context/CartContext'
 import { useFavorites } from '../../context/FavoritesContext'
 import productService from '../../services/productService'
 import { formatPrice } from '../../utils/formatPrice'
+
+const infoContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+}
+
+const infoItemVariants = {
+  hidden: { opacity: 0, x: 30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+  },
+}
+
+const relatedContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+}
+
+const relatedItemVariants = {
+  hidden: { opacity: 0, y: 20, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
+  },
+}
 
 export default function ProductDetail() {
   const { id } = useParams()
@@ -111,12 +153,12 @@ export default function ProductDetail() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="aspect-square rounded-2xl overflow-hidden bg-pink-50 mb-4"
+            className="group/image aspect-square rounded-2xl overflow-hidden bg-pink-50 mb-4"
           >
             <img
               src={product.images?.[selectedImage]}
               alt={getLocalized('title')}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/image:scale-110"
             />
           </motion.div>
 
@@ -127,11 +169,13 @@ export default function ProductDetail() {
                 <button
                   key={i}
                   onClick={() => setSelectedImage(i)}
-                  className={`w-20 h-20 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
+                  aria-label={`${t('products.viewImage') || 'View image'} ${i + 1}`}
+                  className={cn(
+                    'w-20 h-20 rounded-lg overflow-hidden border-2 transition-all cursor-pointer',
                     i === selectedImage
                       ? 'border-pink-400 shadow-md'
                       : 'border-transparent opacity-60 hover:opacity-100'
-                  }`}
+                  )}
                 >
                   <img src={img} alt="" className="w-full h-full object-cover" />
                 </button>
@@ -141,26 +185,42 @@ export default function ProductDetail() {
         </div>
 
         {/* Product Info */}
-        <div className="flex flex-col">
-          <div className="mb-2">
+        <motion.div
+          className="flex flex-col"
+          variants={infoContainerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div className="mb-2" variants={infoItemVariants}>
             <Badge variant={product.inStock ? 'success' : 'error'}>
               {product.inStock ? t('products.inStock') : t('products.outOfStock')}
             </Badge>
-          </div>
+          </motion.div>
 
-          <h1 className="text-2xl md:text-3xl mb-3">{getLocalized('title')}</h1>
+          <motion.h1
+            className="text-2xl md:text-3xl mb-3"
+            variants={infoItemVariants}
+          >
+            {getLocalized('title')}
+          </motion.h1>
 
-          <p className="text-3xl font-bold text-pink-500 mb-6">
+          <motion.p
+            className="text-3xl font-bold text-pink-500 mb-6"
+            variants={infoItemVariants}
+          >
             {formatPrice(product.price, i18n.language)}
-          </p>
+          </motion.p>
 
-          <p className="text-neutral-600 leading-relaxed mb-8">
+          <motion.p
+            className="text-neutral-600 leading-relaxed mb-8"
+            variants={infoItemVariants}
+          >
             {getLocalized('description')}
-          </p>
+          </motion.p>
 
           {/* Colors */}
           {product.colors?.length > 0 && (
-            <div className="mb-8">
+            <motion.div className="mb-8" variants={infoItemVariants}>
               <h3 className="text-sm font-semibold text-neutral-700 mb-3 m-0">
                 {t('products.availableColors')}
               </h3>
@@ -169,11 +229,13 @@ export default function ProductDetail() {
                   <button
                     key={i}
                     onClick={() => setSelectedColor(color)}
-                    className={`w-9 h-9 rounded-full border-2 transition-all cursor-pointer flex items-center justify-center ${
+                    aria-label={`${t('products.selectColor') || 'Select color'}: ${color}`}
+                    className={cn(
+                      'w-9 h-9 rounded-full border-2 transition-all cursor-pointer flex items-center justify-center',
                       selectedColor === color
                         ? 'border-pink-400 scale-110 shadow-md'
                         : 'border-neutral-200 hover:scale-105'
-                    }`}
+                    )}
                     style={{ backgroundColor: color }}
                   >
                     {selectedColor === color && (
@@ -187,11 +249,11 @@ export default function ProductDetail() {
                   </button>
                 ))}
               </div>
-            </div>
+            </motion.div>
           )}
 
           {/* Actions */}
-          <div className="flex gap-3 mt-auto">
+          <motion.div className="flex gap-3 mt-auto" variants={infoItemVariants}>
             <Button
               size="lg"
               icon={added ? Check : ShoppingCart}
@@ -209,19 +271,34 @@ export default function ProductDetail() {
             >
               {liked ? '' : ''}
             </Button>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Gradient Divider */}
+      {related.length > 0 && (
+        <div className="mt-16 mb-12">
+          <div className="h-px bg-gradient-to-r from-transparent via-pink-300 to-transparent" />
+        </div>
+      )}
 
       {/* Related Products */}
       {related.length > 0 && (
-        <div className="mt-16">
+        <div>
           <h2 className="text-2xl mb-6">{t('products.relatedProducts')}</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <motion.div
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+            variants={relatedContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
             {related.map((p) => (
-              <ProductCard key={p.id} product={p} />
+              <motion.div key={p.id} variants={relatedItemVariants}>
+                <ProductCard product={p} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       )}
     </Container>

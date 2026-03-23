@@ -1,11 +1,22 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
+import { motion } from 'framer-motion'
 import Button from '../../components/ui/Button'
 import Input from '../../components/ui/Input'
+import IconButton from '../../components/ui/IconButton'
 import Modal from '../../components/ui/Modal'
 import Spinner from '../../components/ui/Spinner'
 import categoryService from '../../services/categoryService'
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 15 },
+  show: { opacity: 1, y: 0 },
+}
+
+const stagger = {
+  show: { transition: { staggerChildren: 0.06 } },
+}
 
 export default function Categories() {
   const { t } = useTranslation()
@@ -82,16 +93,29 @@ export default function Categories() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-neutral-900 m-0">{t('admin.categoryManagement')}</h1>
+        <motion.h1
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="text-2xl font-bold text-neutral-900 m-0"
+        >
+          {t('admin.categoryManagement')}
+        </motion.h1>
         <Button icon={Plus} onClick={openAdd}>{t('admin.addCategory')}</Button>
       </div>
 
       {/* Category Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+      >
         {categories.map((cat) => (
-          <div
+          <motion.div
             key={cat.id}
-            className="bg-white rounded-xl border border-neutral-100 p-4 flex items-center gap-4"
+            variants={fadeIn}
+            className="bg-white rounded-xl border border-pink-100/50 p-4 flex items-center gap-4 shadow-card hover:shadow-lg transition-all duration-300"
           >
             <div className="w-14 h-14 rounded-lg overflow-hidden bg-pink-50 shrink-0">
               {cat.image && (
@@ -105,22 +129,24 @@ export default function Categories() {
               </p>
             </div>
             <div className="flex gap-1 shrink-0">
-              <button
+              <IconButton
+                icon={Pencil}
+                variant="default"
+                size="sm"
                 onClick={() => openEdit(cat)}
-                className="p-2 rounded-lg text-neutral-400 hover:text-blue-500 hover:bg-blue-50 transition-colors cursor-pointer bg-transparent border-none"
-              >
-                <Pencil className="w-4 h-4" />
-              </button>
-              <button
+                aria-label={t('admin.editCategory')}
+              />
+              <IconButton
+                icon={Trash2}
+                variant="danger"
+                size="sm"
                 onClick={() => setDeleteConfirm(cat)}
-                className="p-2 rounded-lg text-neutral-400 hover:text-error hover:bg-red-50 transition-colors cursor-pointer bg-transparent border-none"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
+                aria-label={t('admin.deleteCategory')}
+              />
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Add/Edit Modal */}
       <Modal
