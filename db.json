@@ -1,0 +1,662 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Satin",
+      "nameAr": "ساتان",
+      "nameFr": "Satin",
+      "image": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "2",
+      "name": "Floral",
+      "nameAr": "زهري",
+      "nameFr": "Floral",
+      "image": "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "3",
+      "name": "Pearl",
+      "nameAr": "لؤلؤ",
+      "nameFr": "Perle",
+      "image": "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "4",
+      "name": "Bow",
+      "nameAr": "فيونكة",
+      "nameFr": "Nœud",
+      "image": "https://images.unsplash.com/photo-1582142839970-2b9e04b60f65?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "5",
+      "name": "Elastic",
+      "nameAr": "مطاطي",
+      "nameFr": "Élastique",
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop"
+    },
+    {
+      "id": "6",
+      "name": "Crown",
+      "nameAr": "تاج",
+      "nameFr": "Couronne",
+      "image": "https://images.unsplash.com/photo-1550537687-c91072c4792d?w=400&h=400&fit=crop"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "title": "Rose Satin Bow",
+      "titleAr": "فيونكة ساتان وردية",
+      "titleFr": "Nœud en satin rose",
+      "description": "A delicate satin bow hairband with a soft pink finish. Perfect for everyday elegance.",
+      "descriptionAr": "ربطة شعر ساتان رقيقة بلون وردي ناعم. مثالية للأناقة اليومية.",
+      "descriptionFr": "Un bandeau nœud en satin délicat avec une finition rose douce. Parfait pour l'élégance quotidienne.",
+      "price": 39,
+      "categoryId": 1,
+      "colors": [
+        "#F9A8D4",
+        "#FFFFFF",
+        "#FDE68A"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop"
+      ],
+      "featured": true,
+      "inStock": true,
+      "createdAt": "2026-03-01"
+    },
+    {
+      "id": "2",
+      "title": "Daisy Floral Crown",
+      "titleAr": "تاج زهور الأقحوان",
+      "titleFr": "Couronne florale marguerite",
+      "description": "Beautiful floral crown with handcrafted daisy accents. Ideal for special occasions.",
+      "descriptionAr": "تاج زهور جميل بلمسات أقحوان مصنوعة يدوياً. مثالي للمناسبات الخاصة.",
+      "descriptionFr": "Belle couronne florale avec des accents de marguerite artisanaux. Idéale pour les occasions spéciales.",
+      "price": 79,
+      "categoryId": 2,
+      "colors": [
+        "#FFFFFF",
+        "#FDE68A",
+        "#FBCFE8"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1518882570028-1cfba4d59287?w=600&h=600&fit=crop"
+      ],
+      "featured": true,
+      "inStock": true,
+      "createdAt": "2026-03-02"
+    },
+    {
+      "id": "3",
+      "title": "Pearl Elegance Band",
+      "titleAr": "ربطة لؤلؤ أنيقة",
+      "titleFr": "Bandeau perles élégance",
+      "description": "Classic pearl-adorned headband with a timeless design. Adds a touch of sophistication.",
+      "descriptionAr": "ربطة رأس مزينة باللؤلؤ بتصميم خالد. تضيف لمسة من الرقي.",
+      "descriptionFr": "Bandeau orné de perles avec un design intemporel. Ajoute une touche de sophistication.",
+      "price": 99,
+      "categoryId": 3,
+      "colors": [
+        "#FFFFFF",
+        "#F9A8D4"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&h=600&fit=crop"
+      ],
+      "featured": true,
+      "inStock": true,
+      "createdAt": "2026-03-03"
+    },
+    {
+      "id": "4",
+      "title": "Velvet Bow Headband",
+      "titleAr": "ربطة فيونكة مخملية",
+      "titleFr": "Bandeau nœud en velours",
+      "description": "Luxurious velvet bow in deep rose. Soft and comfortable for all-day wear.",
+      "descriptionAr": "فيونكة مخملية فاخرة بلون وردي غامق. ناعمة ومريحة للارتداء طوال اليوم.",
+      "descriptionFr": "Nœud en velours luxueux en rose profond. Doux et confortable pour un port toute la journée.",
+      "price": 55,
+      "categoryId": 4,
+      "colors": [
+        "#BE185D",
+        "#171717",
+        "#7C3AED"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1582142839970-2b9e04b60f65?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": true,
+      "createdAt": "2026-03-04"
+    },
+    {
+      "id": "5",
+      "title": "Sparkle Elastic Set",
+      "titleAr": "مجموعة مطاطية لامعة",
+      "titleFr": "Ensemble élastique pailleté",
+      "description": "Set of 3 sparkly elastic bands with glitter accents. Fun and playful for little ones.",
+      "descriptionAr": "مجموعة من 3 أربطة مطاطية لامعة مع لمسات جليتر. ممتعة ومرحة للصغيرات.",
+      "descriptionFr": "Ensemble de 3 élastiques pailletés avec des accents de glitter. Amusant et ludique pour les petites.",
+      "price": 29,
+      "categoryId": 5,
+      "colors": [
+        "#F472B6",
+        "#A78BFA",
+        "#34D399"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": true,
+      "createdAt": "2026-03-05"
+    },
+    {
+      "id": "6",
+      "title": "Princess Tiara Band",
+      "titleAr": "ربطة تاج الأميرة",
+      "titleFr": "Bandeau tiare princesse",
+      "description": "A magical tiara-style headband with crystal details. Every girl's dream accessory.",
+      "descriptionAr": "ربطة رأس على شكل تاج ساحر مع تفاصيل كريستالية. إكسسوار أحلام كل فتاة.",
+      "descriptionFr": "Un bandeau style tiare magique avec des détails en cristal. L'accessoire de rêve de chaque fille.",
+      "price": 129,
+      "categoryId": 6,
+      "colors": [
+        "#E5E7EB",
+        "#F472B6",
+        "#FFFFFF"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1550537687-c91072c4792d?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=600&fit=crop"
+      ],
+      "featured": true,
+      "inStock": true,
+      "createdAt": "2026-03-06"
+    },
+    {
+      "id": "7",
+      "title": "Pastel Rainbow Band",
+      "titleAr": "ربطة قوس قزح باستيل",
+      "titleFr": "Bandeau arc-en-ciel pastel",
+      "description": "Colorful pastel rainbow headband. Lightweight and fun for everyday adventures.",
+      "descriptionAr": "ربطة رأس بألوان قوس قزح الباستيلية. خفيفة وممتعة للمغامرات اليومية.",
+      "descriptionFr": "Bandeau arc-en-ciel pastel coloré. Léger et amusant pour les aventures quotidiennes.",
+      "price": 35,
+      "categoryId": 5,
+      "colors": [
+        "#FBCFE8",
+        "#A5F3FC",
+        "#FDE68A",
+        "#BBF7D0"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": true,
+      "createdAt": "2026-03-07"
+    },
+    {
+      "id": "8",
+      "title": "Silk Ribbon Bow",
+      "titleAr": "فيونكة شريط حريري",
+      "titleFr": "Nœud ruban en soie",
+      "description": "Elegant silk ribbon bow with a gentle drape. Perfect for formal events and photos.",
+      "descriptionAr": "فيونكة شريط حريري أنيقة بتدلي ناعم. مثالية للمناسبات الرسمية والصور.",
+      "descriptionFr": "Nœud ruban en soie élégant avec un drapé délicat. Parfait pour les événements formels et les photos.",
+      "price": 69,
+      "categoryId": 1,
+      "colors": [
+        "#FFFFFF",
+        "#FDF2F8",
+        "#FDE68A"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1582142839970-2b9e04b60f65?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": true,
+      "createdAt": "2026-03-08"
+    },
+    {
+      "id": "9",
+      "title": "Garden Rose Crown",
+      "titleAr": "تاج ورود الحديقة",
+      "titleFr": "Couronne de roses du jardin",
+      "description": "Romantic rose flower crown with soft petals. Beautiful for spring and summer.",
+      "descriptionAr": "تاج زهور ورد رومانسي مع بتلات ناعمة. جميل للربيع والصيف.",
+      "descriptionFr": "Couronne de roses romantique avec des pétales doux. Magnifique pour le printemps et l'été.",
+      "price": 89,
+      "categoryId": 2,
+      "colors": [
+        "#FB7185",
+        "#FFFFFF",
+        "#FCA5A5"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1518882570028-1cfba4d59287?w=600&h=600&fit=crop"
+      ],
+      "featured": true,
+      "inStock": true,
+      "createdAt": "2026-03-09"
+    },
+    {
+      "id": "10",
+      "title": "Mini Pearl Cluster",
+      "titleAr": "عنقود لؤلؤ صغير",
+      "titleFr": "Grappe de mini perles",
+      "description": "Dainty mini pearl cluster headband. Subtle elegance for young fashionistas.",
+      "descriptionAr": "ربطة رأس بعنقود لؤلؤ صغير أنيق. أناقة خفيفة لعاشقات الموضة الصغيرات.",
+      "descriptionFr": "Bandeau grappe de mini perles délicates. Élégance subtile pour les jeunes fashionistas.",
+      "price": 59,
+      "categoryId": 3,
+      "colors": [
+        "#FFFFFF",
+        "#FDF2F8"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": true,
+      "createdAt": "2026-03-10"
+    },
+    {
+      "id": "11",
+      "title": "Double Bow Delight",
+      "titleAr": "فيونكة مزدوجة رائعة",
+      "titleFr": "Double nœud ravissant",
+      "description": "Charming double bow headband with layered design. Double the cuteness!",
+      "descriptionAr": "ربطة رأس فيونكة مزدوجة ساحرة بتصميم متعدد الطبقات. ضعف الجمال!",
+      "descriptionFr": "Charmant bandeau double nœud avec un design superposé. Le double de la mignonnerie !",
+      "price": 45,
+      "categoryId": 4,
+      "colors": [
+        "#F9A8D4",
+        "#FFFFFF",
+        "#FDE68A"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1582142839970-2b9e04b60f65?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": true,
+      "createdAt": "2026-03-11"
+    },
+    {
+      "id": "12",
+      "title": "Crystal Star Band",
+      "titleAr": "ربطة نجمة كريستالية",
+      "titleFr": "Bandeau étoile en cristal",
+      "description": "Twinkling crystal star headband. Makes every girl feel like a star.",
+      "descriptionAr": "ربطة رأس بنجمة كريستالية متلألئة. تجعل كل فتاة تشعر كالنجمة.",
+      "descriptionFr": "Bandeau étoile en cristal scintillant. Fait se sentir chaque fille comme une star.",
+      "price": 109,
+      "categoryId": 6,
+      "colors": [
+        "#E5E7EB",
+        "#F472B6"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1550537687-c91072c4792d?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": true,
+      "createdAt": "2026-03-12"
+    },
+    {
+      "id": "13",
+      "title": "Lace Butterfly Clip",
+      "titleAr": "مشبك فراشة دانتيل",
+      "titleFr": "Pince papillon en dentelle",
+      "description": "Delicate lace butterfly hair accessory. Light as a butterfly, pretty as a flower.",
+      "descriptionAr": "إكسسوار شعر فراشة من الدانتيل الرقيق. خفيفة كالفراشة، جميلة كالزهرة.",
+      "descriptionFr": "Accessoire de cheveux papillon en dentelle délicate. Légère comme un papillon, jolie comme une fleur.",
+      "price": 42,
+      "categoryId": 2,
+      "colors": [
+        "#FFFFFF",
+        "#FBCFE8",
+        "#E9D5FF"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1518882570028-1cfba4d59287?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": true,
+      "createdAt": "2026-03-13"
+    },
+    {
+      "id": "14",
+      "title": "Satin Scrunchie Set",
+      "titleAr": "مجموعة ربطات ساتان",
+      "titleFr": "Ensemble chouchous en satin",
+      "description": "Set of 4 satin scrunchies in princess colors. Gentle on hair, big on style.",
+      "descriptionAr": "مجموعة من 4 ربطات شعر ساتان بألوان الأميرات. لطيفة على الشعر، كبيرة في الأناقة.",
+      "descriptionFr": "Ensemble de 4 chouchous en satin aux couleurs princesse. Doux pour les cheveux, stylés.",
+      "price": 35,
+      "categoryId": 1,
+      "colors": [
+        "#F9A8D4",
+        "#A78BFA",
+        "#FDE68A",
+        "#FFFFFF"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": true,
+      "createdAt": "2026-03-14"
+    },
+    {
+      "id": "15",
+      "title": "Gold Leaf Headpiece",
+      "titleAr": "تاج أوراق ذهبية",
+      "titleFr": "Coiffe feuille dorée",
+      "description": "Stunning gold leaf headpiece for special celebrations. Fit for a true princess.",
+      "descriptionAr": "تاج أوراق ذهبية مذهل للاحتفالات الخاصة. يليق بأميرة حقيقية.",
+      "descriptionFr": "Superbe coiffe de feuilles dorées pour les célébrations spéciales. Digne d'une vraie princesse.",
+      "price": 149,
+      "categoryId": 6,
+      "colors": [
+        "#FDE68A",
+        "#F59E0B"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1550537687-c91072c4792d?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=600&fit=crop"
+      ],
+      "featured": true,
+      "inStock": true,
+      "createdAt": "2026-03-15"
+    },
+    {
+      "id": "16",
+      "title": "Polka Dot Bow",
+      "titleAr": "فيونكة منقطة",
+      "titleFr": "Nœud à pois",
+      "description": "Playful polka dot bow headband. A retro-inspired classic with a modern twist.",
+      "descriptionAr": "ربطة رأس فيونكة منقطة مرحة. كلاسيكية مستوحاة من الريترو بلمسة عصرية.",
+      "descriptionFr": "Bandeau nœud à pois ludique. Un classique rétro avec une touche moderne.",
+      "price": 38,
+      "categoryId": 4,
+      "colors": [
+        "#FFFFFF",
+        "#171717",
+        "#EF4444"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1582142839970-2b9e04b60f65?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": true,
+      "createdAt": "2026-03-16"
+    },
+    {
+      "id": "17",
+      "title": "Spring Blossom Band",
+      "titleAr": "ربطة زهر الربيع",
+      "titleFr": "Bandeau fleur de printemps",
+      "description": "Fresh spring blossom headband with cherry flower details. Welcome the new season in style.",
+      "descriptionAr": "ربطة رأس بزهور الربيع مع تفاصيل زهر الكرز. استقبلي الموسم الجديد بأناقة.",
+      "descriptionFr": "Bandeau frais aux fleurs de printemps avec des détails de cerisier. Accueillez la nouvelle saison avec style.",
+      "price": 65,
+      "categoryId": 2,
+      "colors": [
+        "#FBCFE8",
+        "#FFFFFF",
+        "#FCA5A5"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1518882570028-1cfba4d59287?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": false,
+      "createdAt": "2026-03-17"
+    },
+    {
+      "id": "18",
+      "title": "Twisted Pearl Wrap",
+      "titleAr": "لفة لؤلؤ ملتوية",
+      "titleFr": "Bandeau torsadé en perles",
+      "description": "Twisted pearl wrap headband with a modern silhouette. Elegant meets contemporary.",
+      "descriptionAr": "ربطة رأس بلف لؤلؤ ملتوي بصورة ظلية عصرية. الأناقة تلتقي بالمعاصرة.",
+      "descriptionFr": "Bandeau torsadé en perles avec une silhouette moderne. L'élégance rencontre le contemporain.",
+      "price": 85,
+      "categoryId": 3,
+      "colors": [
+        "#FFFFFF",
+        "#E5E7EB"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&h=600&fit=crop"
+      ],
+      "featured": false,
+      "inStock": true,
+      "createdAt": "2026-03-18"
+    }
+  ],
+  "orders": [
+    {
+      "id": "1",
+      "items": [
+        {
+          "productId": 1,
+          "title": "Rose Satin Bow",
+          "price": 39,
+          "quantity": 2,
+          "color": "#F9A8D4"
+        },
+        {
+          "productId": 3,
+          "title": "Pearl Elegance Band",
+          "price": 99,
+          "quantity": 1,
+          "color": "#FFFFFF"
+        }
+      ],
+      "total": 177,
+      "customer": {
+        "firstName": "Amina",
+        "lastName": "El Idrissi",
+        "phone": "0661234567",
+        "address": "12 Rue Hassan II",
+        "city": "Casablanca"
+      },
+      "status": "delivered",
+      "createdAt": "2026-03-05"
+    },
+    {
+      "id": "2",
+      "items": [
+        {
+          "productId": 6,
+          "title": "Princess Tiara Band",
+          "price": 129,
+          "quantity": 1,
+          "color": "#F472B6"
+        }
+      ],
+      "total": 129,
+      "customer": {
+        "firstName": "Fatima",
+        "lastName": "Benali",
+        "phone": "0677654321",
+        "address": "45 Ave Mohammed V",
+        "city": "Rabat"
+      },
+      "status": "confirmed",
+      "createdAt": "2026-03-12"
+    },
+    {
+      "id": "3",
+      "items": [
+        {
+          "productId": 2,
+          "title": "Daisy Floral Crown",
+          "price": 79,
+          "quantity": 1,
+          "color": "#FFFFFF"
+        },
+        {
+          "productId": 5,
+          "title": "Sparkle Elastic Set",
+          "price": 29,
+          "quantity": 3,
+          "color": "#F472B6"
+        }
+      ],
+      "total": 166,
+      "customer": {
+        "firstName": "Nour",
+        "lastName": "Chraibi",
+        "phone": "0655112233",
+        "address": "8 Blvd Zerktouni",
+        "city": "Marrakech"
+      },
+      "status": "pending",
+      "createdAt": "2026-03-18"
+    },
+    {
+      "id": "4",
+      "items": [
+        {
+          "productId": 15,
+          "title": "Gold Leaf Headpiece",
+          "price": 149,
+          "quantity": 1,
+          "color": "#FDE68A"
+        },
+        {
+          "productId": 9,
+          "title": "Garden Rose Crown",
+          "price": 89,
+          "quantity": 1,
+          "color": "#FB7185"
+        }
+      ],
+      "total": 238,
+      "customer": {
+        "firstName": "Salma",
+        "lastName": "Ouazzani",
+        "phone": "0699887766",
+        "address": "22 Rue de Fès",
+        "city": "Tangier"
+      },
+      "status": "delivered",
+      "createdAt": "2026-03-10"
+    },
+    {
+      "id": "5",
+      "items": [
+        {
+          "productId": 14,
+          "title": "Satin Scrunchie Set",
+          "price": 35,
+          "quantity": 2,
+          "color": "#F9A8D4"
+        }
+      ],
+      "total": 70,
+      "customer": {
+        "firstName": "Kenza",
+        "lastName": "Tazi",
+        "phone": "0622334455",
+        "address": "15 Derb Sidi Bouloukat",
+        "city": "Fes"
+      },
+      "status": "confirmed",
+      "createdAt": "2026-03-20"
+    },
+    {
+      "items": [
+        {
+          "productId": "1",
+          "title": "Rose Satin Bow",
+          "price": 39,
+          "quantity": 2,
+          "color": "#F9A8D4"
+        },
+        {
+          "productId": "3",
+          "title": "Pearl Elegance Band",
+          "price": 99,
+          "quantity": 2,
+          "color": "#FFFFFF"
+        }
+      ],
+      "total": 276,
+      "customer": {
+        "firstName": "simo",
+        "lastName": "kd",
+        "phone": "0675073825",
+        "email": "",
+        "address": "casablanca",
+        "city": "fefezfze"
+      },
+      "notes": "",
+      "status": "pending",
+      "createdAt": "2026-03-23",
+      "id": "A0kbcV4TrLk"
+    }
+  ],
+  "carousel": [
+    {
+      "id": "1",
+      "title": "New Spring Collection",
+      "titleAr": "مجموعة الربيع الجديدة",
+      "titleFr": "Nouvelle collection printemps",
+      "subtitle": "Discover fresh floral designs for the season",
+      "subtitleAr": "اكتشفي تصاميم زهرية جديدة للموسم",
+      "subtitleFr": "Découvrez des designs floraux frais pour la saison",
+      "image": "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=1200&h=500&fit=crop",
+      "link": "/products",
+      "active": true
+    },
+    {
+      "id": "2",
+      "title": "Princess Collection",
+      "titleAr": "مجموعة الأميرات",
+      "titleFr": "Collection princesse",
+      "subtitle": "Tiaras and crowns fit for royalty",
+      "subtitleAr": "تيجان تليق بالملكات",
+      "subtitleFr": "Tiares et couronnes dignes de la royauté",
+      "image": "https://images.unsplash.com/photo-1550537687-c91072c4792d?w=1200&h=500&fit=crop",
+      "link": "/products",
+      "active": true
+    },
+    {
+      "id": "3",
+      "title": "Satin & Silk Sale",
+      "titleAr": "تخفيضات الساتان والحرير",
+      "titleFr": "Soldes satin et soie",
+      "subtitle": "Up to 30% off on premium satin hairbands",
+      "subtitleAr": "خصم يصل إلى 30% على أربطة الساتان الفاخرة",
+      "subtitleFr": "Jusqu'à 30% de réduction sur les bandeaux en satin premium",
+      "image": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1200&h=500&fit=crop",
+      "link": "/products",
+      "active": true
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
