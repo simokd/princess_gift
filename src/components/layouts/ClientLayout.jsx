@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Navbar from '../sections/Navbar'
 import Footer from '../sections/Footer'
+import ScrollToTop from '../ui/ScrollToTop'
 
 export default function ClientLayout() {
   const { pathname } = useLocation()
@@ -17,6 +18,7 @@ export default function ClientLayout() {
         <Outlet />
       </main>
       <Footer />
+      <ScrollToTop />
     </div>
   )
 }

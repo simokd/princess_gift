@@ -55,13 +55,13 @@ export default function Favorites() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-          className="flex flex-col items-center justify-center text-center"
+          className="flex flex-col items-center justify-center text-center max-w-sm mx-auto"
         >
-          <div className="w-20 h-20 rounded-full bg-pink-50 flex items-center justify-center mb-6">
+          <div className="w-20 h-20 rounded-2xl bg-pink-50 flex items-center justify-center mb-6">
             <Heart className="w-10 h-10 text-pink-300" />
           </div>
           <h2 className="text-2xl mb-2">{t('favorites.empty')}</h2>
-          <p className="text-neutral-500 mb-6">{t('favorites.emptyMessage')}</p>
+          <p className="text-neutral-400 mb-6 text-sm">{t('favorites.emptyMessage')}</p>
           <Link to="/products">
             <Button>{t('cart.continueShopping')}</Button>
           </Link>
@@ -73,14 +73,25 @@ export default function Favorites() {
   return (
     <PageTransition>
     <Container className="py-8">
-      <motion.h1
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="text-3xl mb-8"
-      >
-        {t('favorites.title')}
-      </motion.h1>
+      <div className="flex items-center justify-between mb-8">
+        <motion.h1
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="text-3xl"
+        >
+          {t('favorites.title')}
+        </motion.h1>
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pink-50 text-pink-600 text-sm font-medium"
+        >
+          <Heart className="w-3.5 h-3.5 fill-current" />
+          {products.length}
+        </motion.span>
+      </div>
 
       <motion.div
         className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"

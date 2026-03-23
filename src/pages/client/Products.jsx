@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { PackageOpen } from 'lucide-react'
+import { PackageOpen, LayoutGrid, LayoutList } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { cn } from '../../utils/cn'
 import Container from '../../components/ui/Container'
 import PageTransition from '../../components/ui/PageTransition'
 import Spinner from '../../components/ui/Spinner'
@@ -51,6 +52,7 @@ export default function Products() {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
+  const [gridCols, setGridCols] = useState(4)
 
   // Filters
   const [search, setSearch] = useState('')
@@ -92,7 +94,6 @@ export default function Products() {
   const filtered = useMemo(() => {
     let result = [...products]
 
-    // Search
     if (search) {
       const q = search.toLowerCase()
       result = result.filter(
@@ -103,12 +104,10 @@ export default function Products() {
       )
     }
 
-    // Category
     if (categoryId) {
       result = result.filter((p) => String(p.categoryId) === String(categoryId))
     }
 
-    // Price range
     if (minPrice) {
       result = result.filter((p) => p.price >= Number(minPrice))
     }
@@ -116,7 +115,6 @@ export default function Products() {
       result = result.filter((p) => p.price <= Number(maxPrice))
     }
 
-    // Sort
     switch (sortBy) {
       case 'priceLow':
         result.sort((a, b) => a.price - b.price)
@@ -135,7 +133,6 @@ export default function Products() {
     return result
   }, [products, search, categoryId, minPrice, maxPrice, sortBy, i18n.language])
 
-  // Key for AnimatePresence based on filter state to re-trigger stagger
   const gridKey = useMemo(
     () => `${search}-${categoryId}-${minPrice}-${maxPrice}-${sortBy}-${filtered.length}`,
     [search, categoryId, minPrice, maxPrice, sortBy, filtered.length]
@@ -151,78 +148,109 @@ export default function Products() {
 
   return (
     <PageTransition>
-      {/* Decorative pink gradient header */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 -top-24 bg-gradient-to-b from-pink-100/60 via-pink-50/30 to-transparent pointer-events-none h-72" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-pink-200/20 rounded-full blur-3xl pointer-events-none" />
-
-        <Container className="relative py-8">
-          <h1 className="text-3xl md:text-4xl text-center mb-8 text-neutral-800">
+      <Container className="py-8">
+        {/* Page Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl text-neutral-800 mb-2">
             {t('products.title')}
           </h1>
+          <p className="text-neutral-400 text-sm">
+            {t('products.subtitle', 'Discover our curated collection of premium gifts')}
+          </p>
+        </div>
 
-          {/* Filters */}
-          <ProductFilters
-            search={search}
-            onSearchChange={setSearch}
-            categoryId={categoryId}
-            onCategoryChange={setCategoryId}
-            minPrice={minPrice}
-            onMinPriceChange={setMinPrice}
-            maxPrice={maxPrice}
-            onMaxPriceChange={setMaxPrice}
-            sortBy={sortBy}
-            onSortChange={setSortBy}
-            categories={categories}
-          />
+        {/* Filters */}
+        <ProductFilters
+          search={search}
+          onSearchChange={setSearch}
+          categoryId={categoryId}
+          onCategoryChange={setCategoryId}
+          minPrice={minPrice}
+          onMinPriceChange={setMinPrice}
+          maxPrice={maxPrice}
+          onMaxPriceChange={setMaxPrice}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+          categories={categories}
+        />
 
-          {/* Results count pill */}
-          <div className="mt-6 mb-4">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full bg-pink-50 text-pink-600 border border-pink-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-pink-400" />
-              {filtered.length} {filtered.length === 1 ? 'product' : 'products'}
-            </span>
+        {/* Toolbar: results count + grid toggle */}
+        <div className="mt-6 mb-5 flex items-center justify-between">
+          <span className="inline-flex items-center gap-2 text-sm text-neutral-500">
+            <span className="w-1.5 h-1.5 rounded-full bg-pink-400" />
+            <span className="font-medium text-neutral-700">{filtered.length}</span>
+            {filtered.length === 1 ? 'product' : 'products'}
+          </span>
+
+          <div className="hidden md:flex items-center gap-1 bg-neutral-100 rounded-lg p-0.5">
+            <button
+              onClick={() => setGridCols(4)}
+              className={cn(
+                'p-1.5 rounded-md transition-all cursor-pointer',
+                gridCols === 4 ? 'bg-white shadow-sm text-pink-500' : 'text-neutral-400 hover:text-neutral-600'
+              )}
+              aria-label="Grid view"
+            >
+              <LayoutGrid className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setGridCols(3)}
+              className={cn(
+                'p-1.5 rounded-md transition-all cursor-pointer',
+                gridCols === 3 ? 'bg-white shadow-sm text-pink-500' : 'text-neutral-400 hover:text-neutral-600'
+              )}
+              aria-label="Large grid view"
+            >
+              <LayoutList className="w-4 h-4" />
+            </button>
           </div>
+        </div>
 
-          {/* Grid or Empty */}
-          <AnimatePresence mode="wait">
-            {filtered.length > 0 ? (
-              <motion.div
-                key={gridKey}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
-              >
-                {filtered.map((product, index) => (
-                  <motion.div
-                    key={product.id}
-                    custom={index}
-                    variants={cardVariants}
-                  >
-                    <ProductCard product={product} />
-                  </motion.div>
-                ))}
-              </motion.div>
-            ) : (
-              <motion.div
-                key="empty"
-                variants={emptyVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="flex flex-col items-center justify-center py-20 text-center"
-              >
-                <div className="w-20 h-20 rounded-full bg-pink-50 flex items-center justify-center mb-6">
-                  <PackageOpen className="w-10 h-10 text-pink-300" />
-                </div>
-                <h3 className="text-lg font-medium text-neutral-700 mb-2">{t('common.noResults')}</h3>
-                <p className="text-sm text-neutral-400">Try adjusting your filters</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </Container>
-      </div>
+        {/* Grid or Empty */}
+        <AnimatePresence mode="wait">
+          {filtered.length > 0 ? (
+            <motion.div
+              key={gridKey}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className={cn(
+                'grid gap-4 md:gap-6',
+                gridCols === 3
+                  ? 'grid-cols-2 sm:grid-cols-2 lg:grid-cols-3'
+                  : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'
+              )}
+            >
+              {filtered.map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  custom={index}
+                  variants={cardVariants}
+                >
+                  <ProductCard product={product} />
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <motion.div
+              key="empty"
+              variants={emptyVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="flex flex-col items-center justify-center py-24 text-center"
+            >
+              <div className="w-20 h-20 rounded-2xl bg-pink-50 flex items-center justify-center mb-6">
+                <PackageOpen className="w-10 h-10 text-pink-300" />
+              </div>
+              <h3 className="text-lg font-semibold text-neutral-700 mb-2">{t('common.noResults')}</h3>
+              <p className="text-sm text-neutral-400 max-w-sm">
+                Try adjusting your filters or search term to find what you're looking for
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Container>
     </PageTransition>
   )
 }

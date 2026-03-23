@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Heart, ShoppingCart, ChevronLeft, Check } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { Heart, ShoppingCart, ChevronLeft, Check, ChevronRight, Truck, RotateCcw, ShieldCheck } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '../../utils/cn'
 import Container from '../../components/ui/Container'
 import PageTransition from '../../components/ui/PageTransition'
@@ -20,42 +20,24 @@ const infoContainerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
+    transition: { staggerChildren: 0.08, delayChildren: 0.15 },
   },
 }
 
 const infoItemVariants = {
-  hidden: { opacity: 0, x: 30 },
+  hidden: { opacity: 0, x: 25 },
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+    transition: { duration: 0.45, ease: [0.4, 0, 0.2, 1] },
   },
 }
 
-const relatedContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
-  },
-}
-
-const relatedItemVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
-  },
-}
+const trustBadges = [
+  { icon: Truck, label: 'Free Shipping', labelKey: 'products.freeShipping' },
+  { icon: RotateCcw, label: 'Easy Returns', labelKey: 'products.easyReturns' },
+  { icon: ShieldCheck, label: 'Secure Payment', labelKey: 'products.securePayment' },
+]
 
 export default function ProductDetail() {
   const { id } = useParams()
@@ -70,11 +52,13 @@ export default function ProductDetail() {
   const [selectedImage, setSelectedImage] = useState(0)
   const [selectedColor, setSelectedColor] = useState(null)
   const [added, setAdded] = useState(false)
+  const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
     async function load() {
       setLoading(true)
       setAdded(false)
+      setQuantity(1)
       try {
         const prod = await productService.getById(id)
         setProduct(prod)
@@ -100,7 +84,9 @@ export default function ProductDetail() {
   }
 
   const handleAddToCart = () => {
-    addItem(product, selectedColor)
+    for (let i = 0; i < quantity; i++) {
+      addItem(product, selectedColor)
+    }
     setAdded(true)
     addToast(t('products.addedToCart'), 'success')
     setTimeout(() => setAdded(false), 2000)
@@ -131,49 +117,92 @@ export default function ProductDetail() {
   }
 
   const liked = isFavorite(product.id)
+  const images = product.images || []
 
   return (
     <PageTransition>
     <Container className="py-8">
-      {/* Back */}
-      <Link
-        to="/products"
-        className="inline-flex items-center gap-1 text-sm text-neutral-500 hover:text-pink-500 transition-colors mb-6 no-underline"
-      >
-        <ChevronLeft className="w-4 h-4" />
-        {t('common.back')}
-      </Link>
+      {/* Breadcrumb */}
+      <nav className="flex items-center gap-2 text-sm text-neutral-400 mb-6">
+        <Link to="/" className="hover:text-pink-500 transition-colors no-underline text-neutral-400">
+          {t('common.home')}
+        </Link>
+        <ChevronRight className="w-3.5 h-3.5" />
+        <Link to="/products" className="hover:text-pink-500 transition-colors no-underline text-neutral-400">
+          {t('common.products')}
+        </Link>
+        <ChevronRight className="w-3.5 h-3.5" />
+        <span className="text-neutral-600 truncate max-w-[200px]">{getLocalized('title')}</span>
+      </nav>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Image Gallery */}
         <div>
           {/* Main Image */}
-          <motion.div
-            key={selectedImage}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="group/image aspect-square rounded-2xl overflow-hidden bg-pink-50 mb-4"
-          >
-            <img
-              src={product.images?.[selectedImage]}
-              alt={getLocalized('title')}
-              className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/image:scale-110"
-            />
-          </motion.div>
+          <div className="relative group/image aspect-square rounded-2xl overflow-hidden bg-pink-50/50 mb-4">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={selectedImage}
+                src={images[selectedImage]}
+                alt={getLocalized('title')}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/image:scale-105"
+              />
+            </AnimatePresence>
+
+            {/* Image nav arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={() => setSelectedImage((i) => (i - 1 + images.length) % images.length)}
+                  className="absolute start-3 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-white/80 backdrop-blur-sm text-neutral-600 hover:bg-white shadow-sm transition-all cursor-pointer opacity-0 group-hover/image:opacity-100 border-none"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setSelectedImage((i) => (i + 1) % images.length)}
+                  className="absolute end-3 top-1/2 -translate-y-1/2 p-2 rounded-xl bg-white/80 backdrop-blur-sm text-neutral-600 hover:bg-white shadow-sm transition-all cursor-pointer opacity-0 group-hover/image:opacity-100 border-none"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </>
+            )}
+
+            {/* Image counter */}
+            {images.length > 1 && (
+              <div className="absolute bottom-3 inset-x-0 flex justify-center gap-1.5">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedImage(i)}
+                    className={cn(
+                      'w-2 h-2 rounded-full transition-all cursor-pointer border-none',
+                      i === selectedImage ? 'bg-white w-5 shadow-sm' : 'bg-white/50 hover:bg-white/70'
+                    )}
+                    aria-label={`View image ${i + 1}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Thumbnails */}
-          {product.images?.length > 1 && (
+          {images.length > 1 && (
             <div className="flex gap-3">
-              {product.images.map((img, i) => (
+              {images.map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setSelectedImage(i)}
-                  aria-label={`${t('products.viewImage') || 'View image'} ${i + 1}`}
+                  aria-label={`View image ${i + 1}`}
                   className={cn(
-                    'w-20 h-20 rounded-lg overflow-hidden border-2 transition-all cursor-pointer',
+                    'w-20 h-20 rounded-xl overflow-hidden border-2 transition-all cursor-pointer',
                     i === selectedImage
-                      ? 'border-pink-400 shadow-md'
+                      ? 'border-pink-400 shadow-md ring-2 ring-pink-200/50'
                       : 'border-transparent opacity-60 hover:opacity-100'
                   )}
                 >
@@ -191,28 +220,28 @@ export default function ProductDetail() {
           initial="hidden"
           animate="visible"
         >
-          <motion.div className="mb-2" variants={infoItemVariants}>
+          <motion.div className="mb-3" variants={infoItemVariants}>
             <Badge variant={product.inStock ? 'success' : 'error'}>
               {product.inStock ? t('products.inStock') : t('products.outOfStock')}
             </Badge>
           </motion.div>
 
           <motion.h1
-            className="text-2xl md:text-3xl mb-3"
+            className="text-2xl md:text-3xl mb-2"
             variants={infoItemVariants}
           >
             {getLocalized('title')}
           </motion.h1>
 
           <motion.p
-            className="text-3xl font-bold text-pink-500 mb-6"
+            className="text-3xl font-bold bg-gradient-to-r from-pink-500 to-pink-600 bg-clip-text text-transparent mb-6"
             variants={infoItemVariants}
           >
             {formatPrice(product.price, i18n.language)}
           </motion.p>
 
           <motion.p
-            className="text-neutral-600 leading-relaxed mb-8"
+            className="text-neutral-500 leading-relaxed mb-8"
             variants={infoItemVariants}
           >
             {getLocalized('description')}
@@ -229,12 +258,12 @@ export default function ProductDetail() {
                   <button
                     key={i}
                     onClick={() => setSelectedColor(color)}
-                    aria-label={`${t('products.selectColor') || 'Select color'}: ${color}`}
+                    aria-label={`Select color: ${color}`}
                     className={cn(
-                      'w-9 h-9 rounded-full border-2 transition-all cursor-pointer flex items-center justify-center',
+                      'w-10 h-10 rounded-xl border-2 transition-all cursor-pointer flex items-center justify-center',
                       selectedColor === color
-                        ? 'border-pink-400 scale-110 shadow-md'
-                        : 'border-neutral-200 hover:scale-105'
+                        ? 'border-pink-400 scale-110 shadow-md ring-2 ring-pink-200/50'
+                        : 'border-neutral-200 hover:scale-105 hover:border-neutral-300'
                     )}
                     style={{ backgroundColor: color }}
                   >
@@ -252,8 +281,34 @@ export default function ProductDetail() {
             </motion.div>
           )}
 
+          {/* Quantity */}
+          <motion.div className="mb-8" variants={infoItemVariants}>
+            <h3 className="text-sm font-semibold text-neutral-700 mb-3 m-0">
+              {t('products.quantity', 'Quantity')}
+            </h3>
+            <div className="inline-flex items-center border border-neutral-200 rounded-xl overflow-hidden">
+              <button
+                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                disabled={quantity <= 1}
+                className="px-4 py-2.5 text-neutral-500 hover:text-pink-500 hover:bg-pink-50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent border-none"
+              >
+                −
+              </button>
+              <span className="w-12 text-center text-sm font-semibold text-neutral-700 select-none">
+                {quantity}
+              </span>
+              <button
+                onClick={() => setQuantity((q) => Math.min(10, q + 1))}
+                disabled={quantity >= 10}
+                className="px-4 py-2.5 text-neutral-500 hover:text-pink-500 hover:bg-pink-50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent border-none"
+              >
+                +
+              </button>
+            </div>
+          </motion.div>
+
           {/* Actions */}
-          <motion.div className="flex gap-3 mt-auto" variants={infoItemVariants}>
+          <motion.div className="flex gap-3" variants={infoItemVariants}>
             <Button
               size="lg"
               icon={added ? Check : ShoppingCart}
@@ -268,33 +323,49 @@ export default function ProductDetail() {
               size="lg"
               icon={Heart}
               onClick={handleToggleFavorite}
-            >
-              {liked ? '' : ''}
-            </Button>
+            />
+          </motion.div>
+
+          {/* Trust Badges */}
+          <motion.div
+            className="mt-8 grid grid-cols-3 gap-3"
+            variants={infoItemVariants}
+          >
+            {trustBadges.map(({ icon: Icon, label, labelKey }) => (
+              <div key={label} className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-pink-50/50 text-center">
+                <Icon className="w-4 h-4 text-pink-400" />
+                <span className="text-[11px] font-medium text-neutral-500">
+                  {t(labelKey, label)}
+                </span>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Gradient Divider */}
-      {related.length > 0 && (
-        <div className="mt-16 mb-12">
-          <div className="h-px bg-gradient-to-r from-transparent via-pink-300 to-transparent" />
-        </div>
-      )}
-
       {/* Related Products */}
       {related.length > 0 && (
-        <div>
-          <h2 className="text-2xl mb-6">{t('products.relatedProducts')}</h2>
+        <div className="mt-16">
+          <div className="h-px bg-gradient-to-r from-transparent via-pink-200/60 to-transparent mb-12" />
+          <h2 className="text-2xl font-bold text-neutral-800 mb-6">{t('products.relatedProducts')}</h2>
           <motion.div
             className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
-            variants={relatedContainerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: { opacity: 1, transition: { staggerChildren: 0.08 } },
+            }}
           >
             {related.map((p) => (
-              <motion.div key={p.id} variants={relatedItemVariants}>
+              <motion.div
+                key={p.id}
+                variants={{
+                  hidden: { opacity: 0, y: 20, scale: 0.95 },
+                  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4 } },
+                }}
+              >
                 <ProductCard product={p} />
               </motion.div>
             ))}

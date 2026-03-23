@@ -15,23 +15,23 @@ export default function QuantitySelector({
   }
 
   return (
-    <div className="inline-flex items-center border border-neutral-200 rounded-lg">
+    <div className="inline-flex items-center border border-neutral-200 rounded-xl overflow-hidden">
       <button
         onClick={decrease}
         disabled={value <= min}
-        className="p-2 text-neutral-500 hover:text-pink-500 hover:bg-pink-50 rounded-s-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+        className="p-2 text-neutral-400 hover:text-pink-500 hover:bg-pink-50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent border-none"
       >
-        <Minus className="w-4 h-4" />
+        <Minus className="w-3.5 h-3.5" />
       </button>
-      <span className="w-10 text-center text-sm font-medium text-neutral-700 select-none">
+      <span className="w-10 text-center text-sm font-semibold text-neutral-700 select-none">
         {value}
       </span>
       <button
         onClick={increase}
         disabled={value >= max}
-        className="p-2 text-neutral-500 hover:text-pink-500 hover:bg-pink-50 rounded-e-lg transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+        className="p-2 text-neutral-400 hover:text-pink-500 hover:bg-pink-50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer bg-transparent border-none"
       >
-        <Plus className="w-4 h-4" />
+        <Plus className="w-3.5 h-3.5" />
       </button>
     </div>
   )

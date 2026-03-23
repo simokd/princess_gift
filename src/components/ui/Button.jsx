@@ -1,12 +1,13 @@
 import { Loader2 } from 'lucide-react'
+import { cn } from '../../utils/cn'
 
 const variants = {
   primary:
-    'bg-pink-500 text-white hover:bg-pink-600 active:bg-pink-700 shadow-card hover:shadow-md',
+    'bg-gradient-to-r from-pink-500 to-pink-600 text-white hover:from-pink-600 hover:to-pink-700 active:from-pink-700 active:to-pink-800 shadow-md hover:shadow-lg',
   secondary:
     'bg-pink-50 text-pink-600 hover:bg-pink-100 active:bg-pink-200',
   outline:
-    'border border-pink-300 text-pink-500 hover:bg-pink-50 active:bg-pink-100',
+    'border border-pink-200 text-pink-500 hover:bg-pink-50 active:bg-pink-100',
   ghost:
     'text-pink-500 hover:bg-pink-50 active:bg-pink-100',
   danger:
@@ -14,9 +15,9 @@ const variants = {
 }
 
 const sizes = {
-  sm: 'px-3 py-1.5 text-sm rounded-md gap-1.5',
-  md: 'px-5 py-2.5 text-sm rounded-lg gap-2',
-  lg: 'px-7 py-3 text-base rounded-lg gap-2.5',
+  sm: 'px-3 py-1.5 text-sm rounded-lg gap-1.5',
+  md: 'px-5 py-2.5 text-sm rounded-xl gap-2',
+  lg: 'px-7 py-3 text-base rounded-xl gap-2.5',
 }
 
 export default function Button({
@@ -34,15 +35,15 @@ export default function Button({
 
   return (
     <button
-      className={`
-        inline-flex items-center justify-center font-medium
-        transition-all duration-200 ease-smooth
-        disabled:opacity-50 disabled:cursor-not-allowed
-        cursor-pointer
-        ${variants[variant]}
-        ${sizes[size]}
-        ${className}
-      `}
+      className={cn(
+        'inline-flex items-center justify-center font-semibold',
+        'transition-all duration-200 ease-smooth',
+        'disabled:opacity-50 disabled:cursor-not-allowed',
+        'cursor-pointer',
+        variants[variant],
+        sizes[size],
+        className
+      )}
       disabled={isDisabled}
       {...props}
     >

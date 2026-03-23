@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Search, SlidersHorizontal } from 'lucide-react'
+import { Search, SlidersHorizontal, X } from 'lucide-react'
 import Input from '../ui/Input'
 import Select from '../ui/Select'
 
@@ -36,14 +36,36 @@ export default function ProductFilters({
     { value: 'name', label: t('products.sortName') },
   ]
 
+  const hasActiveFilters = search || categoryId || minPrice || maxPrice
+
+  const clearAll = () => {
+    onSearchChange('')
+    onCategoryChange('')
+    onMinPriceChange('')
+    onMaxPriceChange('')
+  }
+
   return (
-    <div className="bg-white rounded-xl border border-pink-100/50 shadow-soft p-4 md:p-6">
-      <div className="flex items-center gap-2 mb-4">
-        <SlidersHorizontal className="w-4 h-4 text-pink-400" />
-        <h3 className="text-sm font-semibold text-neutral-700 m-0">{t('common.filter')}</h3>
+    <div className="bg-white rounded-2xl border border-pink-100/40 shadow-soft p-4 md:p-6">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-pink-50 flex items-center justify-center">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-pink-500" />
+          </div>
+          <h3 className="text-sm font-semibold text-neutral-700 m-0">{t('common.filter')}</h3>
+        </div>
+        {hasActiveFilters && (
+          <button
+            onClick={clearAll}
+            className="flex items-center gap-1 text-xs text-neutral-400 hover:text-pink-500 transition-colors cursor-pointer bg-transparent border-none"
+          >
+            <X className="w-3 h-3" />
+            Clear all
+          </button>
+        )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
         {/* Search */}
         <div className="sm:col-span-2 lg:col-span-1">
           <Input

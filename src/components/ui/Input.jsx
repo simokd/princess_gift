@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+import { cn } from '../../utils/cn'
 
 const Input = forwardRef(function Input(
   {
@@ -14,7 +15,7 @@ const Input = forwardRef(function Input(
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-neutral-700 mb-1.5">
+        <label className="block text-sm font-medium text-neutral-600 mb-1.5">
           {label}
         </label>
       )}
@@ -27,19 +28,16 @@ const Input = forwardRef(function Input(
         <input
           ref={ref}
           type={type}
-          className={`
-            w-full px-4 py-2.5 text-sm rounded-lg
-            bg-white border transition-all duration-200
-            placeholder:text-neutral-300
-            ${Icon ? 'ps-10' : ''}
-            ${
-              error
-                ? 'border-error focus:ring-2 focus:ring-red-100 focus:border-error'
-                : 'border-neutral-200 focus:ring-2 focus:ring-pink-100 focus:border-pink-400'
-            }
-            outline-none
-            ${className}
-          `}
+          className={cn(
+            'w-full px-4 py-2.5 text-sm rounded-xl',
+            'bg-white border transition-all duration-200',
+            'placeholder:text-neutral-300 outline-none',
+            Icon && 'ps-10',
+            error
+              ? 'border-error focus:ring-2 focus:ring-red-100 focus:border-error'
+              : 'border-neutral-200 focus:ring-2 focus:ring-pink-100 focus:border-pink-400',
+            className
+          )}
           {...props}
         />
       </div>

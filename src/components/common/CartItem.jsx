@@ -21,7 +21,7 @@ export default function CartItem({ item }) {
     <div className="flex gap-4 py-4 border-b border-neutral-100 last:border-b-0">
       {/* Image */}
       <Link to={`/products/${item.id}`} className="shrink-0">
-        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden bg-pink-50">
+        <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-pink-50/50">
           <img src={item.image} alt={title} className="w-full h-full object-cover" />
         </div>
       </Link>
@@ -36,16 +36,17 @@ export default function CartItem({ item }) {
 
         {/* Color dot */}
         {item.selectedColor && (
-          <div className="flex items-center gap-1.5 mt-1">
+          <div className="flex items-center gap-1.5 mt-1.5">
             <span
-              className="w-3 h-3 rounded-full border border-neutral-200"
+              className="w-3.5 h-3.5 rounded-full border border-neutral-200 shadow-sm"
               style={{ backgroundColor: item.selectedColor }}
             />
+            <span className="text-[11px] text-neutral-400">{item.selectedColor}</span>
           </div>
         )}
 
         {/* Price on mobile */}
-        <p className="text-sm font-semibold text-pink-500 mt-2 sm:hidden">
+        <p className="text-sm font-semibold bg-gradient-to-r from-pink-500 to-pink-600 bg-clip-text text-transparent mt-2 sm:hidden">
           {formatPrice(item.price * item.quantity, i18n.language)}
         </p>
 
@@ -66,11 +67,11 @@ export default function CartItem({ item }) {
 
       {/* Price on desktop */}
       <div className="hidden sm:flex flex-col items-end justify-center">
-        <span className="text-base font-semibold text-pink-500">
+        <span className="text-base font-bold bg-gradient-to-r from-pink-500 to-pink-600 bg-clip-text text-transparent">
           {formatPrice(item.price * item.quantity, i18n.language)}
         </span>
         {item.quantity > 1 && (
-          <span className="text-xs text-neutral-400">
+          <span className="text-xs text-neutral-400 mt-0.5">
             {formatPrice(item.price, i18n.language)} each
           </span>
         )}

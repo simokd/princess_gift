@@ -1,3 +1,5 @@
+import { cn } from '../../utils/cn'
+
 export default function Card({
   children,
   hover = false,
@@ -7,13 +9,12 @@ export default function Card({
 }) {
   return (
     <div
-      className={`
-        bg-white rounded-xl border border-pink-100/50
-        shadow-card
-        ${hover ? 'transition-all duration-300 hover:shadow-lg hover:-translate-y-1' : ''}
-        ${padding ? 'p-6' : ''}
-        ${className}
-      `}
+      className={cn(
+        'bg-white rounded-2xl border border-pink-100/40 shadow-soft',
+        hover && 'transition-all duration-300 hover:shadow-lg hover:-translate-y-1',
+        padding && 'p-6',
+        className
+      )}
       {...props}
     >
       {children}
